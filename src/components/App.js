@@ -10,7 +10,7 @@ bootstrapUtils.addStyle(Navbar, 'custom');
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className="forShare">
         <Navbar bsStyle="custom">
           <Navbar.Header>
             <Navbar.Brand>
@@ -24,7 +24,9 @@ class App extends React.Component {
             <LinkContainer to="/write-source">
               <NavItem>写文章</NavItem>
             </LinkContainer>
-            <LinkContainer to="/login" bsStyle="custom">
+          </Nav>
+          <Nav pullRight>
+            <LinkContainer to="/login">
               <NavItem>登陆</NavItem>
             </LinkContainer>
           </Nav>
