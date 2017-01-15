@@ -1,0 +1,36 @@
+.navbar-custom{
+  background-color: #fff;
+  border-color: #e7e7e7;
+  height: 100%;
+  box-shadow: 0px 1px 9px 1px #cfcfcf;
+  padding: 1em 0;
+}
+a{
+  color: #212121;
+  cursor: pointer;
+}
+a:hover{
+  color: #fa4b2a;
+  background-color: transparent !important;
+}
+a:active{
+  color: #fa4b2a;
+  background-color: transparent !important;
+}
+.btn-custom{
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  background-image: url("../img/search-icon.png");
+}
+footer{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1.8rem;
+  background-color: #303030;
+  text-align: center;
+  color: #fff;
+}
