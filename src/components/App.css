@@ -13,9 +13,9 @@ a:hover{
   color: #fa4b2a;
   background-color: transparent !important;
 }
-a:active{
-  color: #fa4b2a;
-  background-color: transparent !important;
+li.active{
+  color: #212121;
+  background: transparent;
 }
 .btn-custom{
   border: none;
