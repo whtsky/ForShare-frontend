@@ -18,7 +18,7 @@ class WriteSource extends React.Component{
 
   render(){
     return(
-      <div className="write-source">
+      <div key="write-source" className="write-source">
         <h1 className="title-h">写文章</h1>
         <p className="title-p"><label className="of"></label>在这里添加链接<label className="on"></label></p>
         <form>

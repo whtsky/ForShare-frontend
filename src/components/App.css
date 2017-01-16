@@ -31,4 +31,23 @@ footer{
   background-color: #303030;
   text-align: center;
   color: #fff;
+  display: block;
+  box-shadow: 0px -6px 9px 3px #cfcfcf;
+}
+.app-enter {
+  opacity: 0.01;
+  height: 0px;
+}
+.app-enter.app-enter-active {
+  opacity: 1;
+  height: auto;
+  transition: 700ms;
+}
+.app-leave {
+  opacity: 1;
+}
+
+.app-leave.app-leave-active {
+  opacity: 0.01;
+  transition: opacity 0ms ease-in;
 }
