@@ -1,3 +1,6 @@
+body{
+  background: #EDEDEF;
+}
 .navbar-custom{
   background-color: #fff;
   border-color: #e7e7e7;
@@ -5,17 +8,17 @@
   box-shadow: 0px 1px 9px 1px #cfcfcf;
   padding: 1em 0;
 }
-a{
+.header a{
   color: #212121;
   cursor: pointer;
 }
-a:hover{
+.header a:hover{
   color: #fa4b2a;
   background-color: transparent !important;
   text-decoration: none;
 }
 
-.forShare .nav>li>a:focus {
+.header .nav>li>a:focus {
   background-color: transparent;    /* 设置active背景 */
   color: #fa4b2a;
 }

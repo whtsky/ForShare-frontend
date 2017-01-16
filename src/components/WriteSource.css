@@ -1,0 +1,39 @@
+.write-source{
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+}
+.write-source .title-h{
+  display: block;
+}
+.write-source .title-p {
+    width: 400px;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    line-height: 1.8em;
+    color: #fa4b2a;
+    font-weight: 400;
+}
+.write-source label {
+    width: 24%;
+    height: 2px;
+    margin-top: 3%;
+    display: inline-block;
+    max-width: 100%;
+    font-weight: bold;
+    background: #303030;
+}
+.write-source form{
+  width: 50%;
+}
+.form-group-custom textarea{
+  height: 150px;
+}
+.write-source button{
+  width: 20%;
+  border-radius: 3px;
+}

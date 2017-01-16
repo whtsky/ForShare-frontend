@@ -1,5 +1,5 @@
 import React from 'react';
-// import ajax from 'superagent';
+import ajax from 'superagent';
 
 class SourceShare extends React.Component{
   constructor(props){
@@ -11,14 +11,17 @@ class SourceShare extends React.Component{
   }
 
   componentWillMount(){
-    // ajax.get("")
-    // .end((error, response) => {
-    //   if(!error && response){
-    //     this.setState({ resource : response.body });
-    //   }else{
-    //     console.log("fetching error!");
-    //   }
-    // })
+    ajax.get("")
+    .end((error, response) => {
+      if(!error && response){
+        this.setState({ resource : response.body });
+      }else{
+        console.log("fetching error!");
+      }
+    })
+  }
+  render(){
+    return(null)
   }
 }
 

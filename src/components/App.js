@@ -10,7 +10,7 @@ bootstrapUtils.addStyle(Navbar, 'custom');
 class App extends React.Component {
   render() {
     return (
-      <div className="forShare">
+      <div className="header">
         <Navbar bsStyle="custom">
           <Navbar.Header>
             <Navbar.Brand>
@@ -18,7 +18,7 @@ class App extends React.Component {
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <LinkContainer to="/source-share">
+            <LinkContainer to="/source-share-list">
               <NavItem>资源分享</NavItem>
             </LinkContainer>
             <LinkContainer to="/write-source">
@@ -31,6 +31,7 @@ class App extends React.Component {
             </LinkContainer>
           </Nav>
         </Navbar>
+        {this.props.children}
         <footer>ForShare</footer>
       </div>
     );
