@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import { LinkContainer } from 'react-router-bootstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { presets, RouteTransition } from 'react-router-transition';
+
 
 import './App.css';
 
@@ -34,12 +34,11 @@ class App extends React.Component {
             </LinkContainer>
           </Nav>
         </Navbar>
-        <RouteTransition
-          {...presets.fade}
-          pathname={this.props.location.pathname}
-        >
-        {this.props.children}
-        </RouteTransition>
+        <ReactCSSTransitionGroup transitionName="app" component="div" transitionEnterTimeout={500} transitionLeaveTimeout={100}>
+          {React.cloneElement(this.props.children, {
+            key: this.props.location.pathname
+          })}
+        </ReactCSSTransitionGroup>
         <footer>ForShare</footer>
       </div>
     );
