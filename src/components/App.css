@@ -10,6 +10,12 @@ body{
 }
 .header{
   min-height: 100vh;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+}
+.header > div.body {
+  flex: 1;
 }
 .header a{
   color: #212121;

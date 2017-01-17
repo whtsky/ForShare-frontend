@@ -34,12 +34,9 @@ class App extends React.Component {
             </LinkContainer>
           </Nav>
         </Navbar>
-        <RouteTransition
-          {...presets.fade}
-          pathname={this.props.location.pathname}
-        >
-        {this.props.children}
-        </RouteTransition>
+        <div className="body">
+          { this.props.children }
+        </div>
         <footer>ForShare</footer>
       </div>
     );

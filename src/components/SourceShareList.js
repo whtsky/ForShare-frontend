@@ -40,7 +40,8 @@ class SourceShareList extends React.Component{
 
             return (
               <div key={source.id}>
-                <p>BY{userName}urlPubulishTime</p>
+                <p>BY{userName}{urlPubulishTime}</p>
+                <p>{urlintroduce}</p>
                 <div>了解详情</div>
               </div>
             )
