@@ -27,7 +27,7 @@ footer{
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 1.8rem;
+  padding: 1.4rem;
   background-color: #303030;
   text-align: center;
   color: #fff;
@@ -41,13 +41,14 @@ footer{
 .app-enter.app-enter-active {
   opacity: 1;
   height: auto;
-  transition: 700ms;
+  transition: opacity 800ms;
 }
 .app-leave {
   opacity: 1;
+  height: 0px;
 }
 
 .app-leave.app-leave-active {
   opacity: 0.01;
-  transition: opacity 0ms ease-in;
+  display: none;
 }

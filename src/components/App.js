@@ -34,7 +34,7 @@ class App extends React.Component {
             </LinkContainer>
           </Nav>
         </Navbar>
-        <ReactCSSTransitionGroup transitionName="app" component="div" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+        <ReactCSSTransitionGroup transitionName="app" component="div" transitionEnterTimeout={500} transitionLeaveTimeout={100}>
           {React.cloneElement(this.props.children, {
             key: this.props.location.pathname
           })}

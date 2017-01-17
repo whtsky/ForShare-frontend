@@ -6,9 +6,9 @@
   margin-top: 6em;
   align-items: center;
   width: 30%;
-  height: 330px !important;
   background-color: #fff;
   padding-top: 1em; 
+  padding-bottom: 5em;
   border-radius: 5px;
 }
 .login form{
