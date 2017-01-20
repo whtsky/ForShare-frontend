@@ -6,7 +6,6 @@ import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import './WriteSource.css';
 
 bootstrapUtils.addStyle(FormControl, 'custom');
-bootstrapUtils.addStyle(Button, 'custom');
 
 class WriteSource extends React.Component{
 

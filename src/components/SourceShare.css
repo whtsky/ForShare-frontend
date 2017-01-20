@@ -1,0 +1,53 @@
+.source-share{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 70%;
+  margin: 4em auto auto auto;
+}
+.source{
+  width: 100%;
+  display: flex;
+  padding: 3em 2em 2em 2em;
+  margin-bottom: 2em;
+  background-color: #fff;
+  justify-content: space-between;
+  flex-direction: column;
+  border-radius: 3px;
+}
+.source .source-title{
+  margin-bottom: 1.4em;
+}
+.source b{
+  margin-right: 1em;
+}
+.source .b-publishtime{
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+}
+.source .b-username{
+  font-size: 14px;
+  color: #fa4b2a; 
+}
+.source-share .comment-source{
+  background-color: #fff;
+  padding: 1em;
+  border-radius: 3px;
+}
+.source-share .comment b{
+  margin-right: 1em;
+}
+.source-share .comment .b-comment-username{
+  font-size: 14px;
+  color: #fa4b2a; 
+}
+.source-share .comment .b-comment-time{
+  font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+}
+.source-share .write-comment .form-group-custom{
+  width: 98%;
+}
+.source-share .write-comment button{
+  margin-right: 0.6em;
+}

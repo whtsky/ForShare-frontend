@@ -16,10 +16,10 @@ class SourceShareList extends React.Component{
   componentWillMount(){
     const baseUrl = "http://182.92.209.117:2168/fundpart";
 
-    ajax.get(`${baseUrl}/urlpublish`)
+    ajax.get(`${baseUrl}/urlpublish/?limit=10`)
     .end((error, response) => {
       if(!error && response){
-        this.setState({ sourceList : response.body });
+        this.setState({ sourceList : response.body.results });
       }else{
         console.log("fetching error!");
       }
@@ -42,7 +42,6 @@ class SourceShareList extends React.Component{
             const urlReadCount = source.urlreadcount;
 
             return (
-              
                 <div className="source-card" key={source.id}>
                   <p>
                     <b className="b-by">BY</b>
@@ -51,13 +50,12 @@ class SourceShareList extends React.Component{
                     阅读量：{urlReadCount}
                   </p>
                   <p>{urlintroduce}</p>
-                  <LinkContainer to="/source-share">
+                  <LinkContainer to={`/source-share/results/${id}`}>
                     <NavItem>                           {/* 防止<Button> 被自动转换成<a>导致样式混乱 */}
                       <Button bsStyle="danger">了解详情</Button>
                     </NavItem>
                   </LinkContainer>
                 </div>
-              
             )
           }
           )
