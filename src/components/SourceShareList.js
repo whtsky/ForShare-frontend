@@ -1,6 +1,7 @@
 import React from 'react';
 import ajax from 'superagent';
 import './SourceShareList.css';
+import baseUrl from './config';
 import { Button, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -14,8 +15,6 @@ class SourceShareList extends React.Component{
   }
 
   componentWillMount(){
-    const baseUrl = "http://182.92.209.117:2168/fundpart";
-
     ajax.get(`${baseUrl}/urlpublish/?limit=10`)
     .end((error, response) => {
       if(!error && response){
@@ -40,6 +39,7 @@ class SourceShareList extends React.Component{
             const urlintroduce = source.urlintroduce;
             const urlPubulishTime = source.urlpublish_time.slice(0, 16);
             const urlReadCount = source.urlreadcount;
+            const commentLength = source.urlcomment_set.length;
 
             return (
                 <div className="source-card" key={source.id}>
@@ -47,7 +47,8 @@ class SourceShareList extends React.Component{
                     <b className="b-by">BY</b>
                     <b className="b-username">{userName}</b>
                     <b className="b-publishtime">{urlPubulishTime}</b>
-                    阅读量：{urlReadCount}
+                    阅读量：{urlReadCount} 
+                    评论量：{commentLength}
                   </p>
                   <p>{urlintroduce}</p>
                   <LinkContainer to={`/source-share/results/${id}`}>

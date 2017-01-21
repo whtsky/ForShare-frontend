@@ -1,5 +1,6 @@
 import React from 'react';
 import ajax from 'superagent';
+import baseUrl from './config';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
@@ -14,18 +15,18 @@ class SourceShare extends React.Component{
     this.state= {
       resource: [],
       comments: [],
-      urlPublishTime: 0
+      urlPublishTime: 0,
+      commentLength: 0
     }
   }
 
   componentWillMount(){
-    const baseUrl = 'http://182.92.209.117:2168/fundpart';
-
     ajax.get(`${baseUrl}/urlpublish/${this.props.params.id}`)
     .end((error, response) => {
       if(!error && response){
         this.setState({ resource : response.body });
         this.setState({ urlPublishTime : response.body.urlpublish_time.slice(0, 16) });
+        this.setState({ commentLength : response.body.urlcomment_set.length })
       }else{
         console.log("resource fetching error!");
       }
@@ -42,11 +43,11 @@ class SourceShare extends React.Component{
   }
 
   render(){
-    const length = this.state.resource.length;
     return(
       <div className="source-share">
         <div className="source">
           <div className="source-title">
+            <b>发布于</b>
             <b className="b-username">{this.state.resource.username}</b> 
             <b className="b-publishtime">{this.state.urlPublishTime}</b>
           </div>
@@ -58,7 +59,7 @@ class SourceShare extends React.Component{
           </p>
         </div>
         <div className="comment-source">
-          <div><h4>评论：{length}</h4></div>
+          <div><h5>{this.state.commentLength} 条评论</h5></div>
           <div className="comment-list">
             {
               this.state.comments.map((comment, index) => {
@@ -68,7 +69,7 @@ class SourceShare extends React.Component{
 
                 return (
                   <div className="comment" key={index}>
-                    <p><b className="b-comment-username">{username}</b><b className="b-comment-time">{commentTime}</b></p>
+                    <p><b>来自</b><b className="b-comment-username">{username}</b><b className="b-comment-time">{commentTime}</b></p>
                     <p>{content}</p>
                   </div>
                 )
