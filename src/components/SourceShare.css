@@ -13,7 +13,6 @@
   background-color: #fff;
   justify-content: space-between;
   flex-direction: column;
-  border-radius: 3px;
 }
 .source .source-title{
   margin-bottom: 1.4em;
@@ -32,7 +31,6 @@
 .source-share .comment-source{
   background-color: #fff;
   padding: 2em;
-  border-radius: 3px;
 }
 .source-share .comment b{
   margin-right: 1em;

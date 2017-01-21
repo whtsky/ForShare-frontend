@@ -37,14 +37,14 @@
 }
 .source-share-list .source-card{
   margin-bottom: 1em;
-  height: 200px;
+  height: 160px;
   width: 100%;
   background-color: #fff;
   border: 1px #EDEDEF solid;
-  padding: 3em 2em 2em 2em;
+  padding: 2em;
 }
 .source-card button{
-  margin-top: 2em;
+  margin-top: 1em;
   width: 12%;
   border-radius: 0;
 }
@@ -63,4 +63,23 @@
   font-size: 16px;
   font-family: 'Raleway', sans-serif;
 }
+.source-share-list .pagination{
+  margin: 0.2em 11.8em 1em auto;
+  align-self: flex-end;
+}
+.source-share-list .pagination>li>a{
+  color: lightslategray;
+}
+.source-share-list .pagination>li>a{
+  background: none;
+  border: none;
+}
+.source-share-list .pagination>li>a:hover{
+  color: lightslategray;
+}
+.source-share-list .pagination>li.active>a{
+  color: #fff;
+  border: none;
+}
+
 

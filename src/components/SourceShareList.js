@@ -2,6 +2,7 @@ import React from 'react';
 import ajax from 'superagent';
 import './SourceShareList.css';
 import baseUrl from './config';
+import ReactPaginate from 'react-paginate';
 import { Button, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -10,20 +11,36 @@ class SourceShareList extends React.Component{
     super(props);
 
     this.state= {
-      sourceList: []
+      sourceList: [],
+      offset: 0,
+      perPage: 5
     }
   }
 
-  componentWillMount(){
-    ajax.get(`${baseUrl}/urlpublish/?limit=10`)
+loadSourceFromServer(){
+  ajax.get(`${baseUrl}/urlpublish`)
+    .query({ limit: this.state.perPage, offset: this.state.offset })
     .end((error, response) => {
       if(!error && response){
-        this.setState({ sourceList : response.body.results });
+        this.setState({ sourceList : response.body.results, pageCount: Math.ceil(response.body.count / this.state.perPage) });
       }else{
-        console.log("fetching error!");
+        console.log("source list fetching error!");
       }
     });
+}
+
+  componentWillMount(){
+    this.loadSourceFromServer();
   }
+
+  handlePageClick = (data) => {
+    let selected = data.selected;
+    let offset = Math.ceil(selected * this.state.perPage);
+
+    this.setState({offset: offset}, () => {
+      this.loadSourceFromServer();
+    });
+  };
 
   render() {
     return (
@@ -47,7 +64,7 @@ class SourceShareList extends React.Component{
                     <b className="b-by">BY</b>
                     <b className="b-username">{userName}</b>
                     <b className="b-publishtime">{urlPubulishTime}</b>
-                    阅读量：{urlReadCount} 
+                    阅读量：{urlReadCount} &nbsp;&nbsp;
                     评论量：{commentLength}
                   </p>
                   <p>{urlintroduce}</p>
@@ -61,6 +78,17 @@ class SourceShareList extends React.Component{
           }
           )
         }</div>
+        <ReactPaginate previousLabel={"<"}
+                       nextLabel={">"}
+                       breakLabel={<a href="">...</a>}
+                       breakClassName={"break-me"}
+                       pageCount={this.state.pageCount}
+                       marginPagesDisplayed={1}
+                       pageRangeDisplayed={5}
+                       onPageChange={this.handlePageClick}
+                       containerClassName={"pagination"}
+                       subContainerClassName={"pages pagination"}
+                       activeClassName={"active"} />
       </div>
     )
   }
