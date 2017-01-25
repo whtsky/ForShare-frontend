@@ -1,9 +1,9 @@
 import React from 'react';
 import ajax from 'superagent';
-import baseUrl from './config';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
+import baseUrl from './config';
 import './SourceShare.css';
 
 bootstrapUtils.addStyle(FormControl, 'custom');
