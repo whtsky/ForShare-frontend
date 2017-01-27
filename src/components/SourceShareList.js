@@ -1,10 +1,11 @@
 import React from 'react';
 import ajax from 'superagent';
-import './SourceShareList.css';
-import baseUrl from './config';
 import ReactPaginate from 'react-paginate';
 import { Button, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+
+import './SourceShareList.css';
+import baseUrl from './config';
 
 class SourceShareList extends React.Component{
   constructor(props){

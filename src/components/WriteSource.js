@@ -37,15 +37,15 @@ class WriteSource extends React.Component{
     this.setState({ publishContent : content });
 
     ajax.post(`${baseUrl}/urlpublish`)
-    .send(this.state.publishContent)
-    .set('Accept', 'application/json')
-    .end(function(error, response){
-     if (error || !response.ok) {
-       console.log('source push error!');
-     } else {
-       console.log('yay got ' + JSON.stringify(response.body));
-     }
-    });
+      .send(this.state.publishContent)
+      .set('Accept', 'application/json')
+      .end(function(error, response){
+      if (error || !response.ok) {
+        console.log('source push error!');
+      } else {
+        console.log('yay got ' + JSON.stringify(response.body));
+      }
+      });
   }
 
   render(){

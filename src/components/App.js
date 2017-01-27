@@ -10,8 +10,15 @@ import './App.css';
 bootstrapUtils.addStyle(Navbar, 'custom');
 
 class App extends React.Component {
-  render() {
+  constructor(props){
+    super(props);
 
+    this.state = {
+      navContent : "登陆"
+    }
+  }
+
+  render() {
     return (
       <div className="header">
         <Navbar bsStyle="custom">
@@ -30,7 +37,7 @@ class App extends React.Component {
           </Nav>
           <Nav pullRight>
             <LinkContainer to="/login">
-              <NavItem>登陆</NavItem>
+              <NavItem>{this.state.navContent}</NavItem>
             </LinkContainer>
           </Nav>
         </Navbar>
