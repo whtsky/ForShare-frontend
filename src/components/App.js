@@ -2,7 +2,6 @@ import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import { LinkContainer } from 'react-router-bootstrap';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { presets, RouteTransition } from 'react-router-transition';
 
 import LoginStatusUI from './LoginStatusUI';
