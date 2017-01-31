@@ -3,6 +3,7 @@ import ajax from 'superagent';
 import ReactPaginate from 'react-paginate';
 import { Button, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router';
 
 import './SourceShareList.css';
 import baseUrl from './config';
@@ -55,7 +56,8 @@ loadSourceFromServer(){
           {
             this.state.sourceList.map((source) => {
               const id = source.id;
-              const userName = source.username;
+              const userName = source.owner;
+              const userId = source.username;
               const urlMessage = source.urlmessage;
               const urlintroduce = source.urlintroduce;
               const urlPubulishTime = source.urlpublish_time.slice(0, 16);
@@ -66,7 +68,7 @@ loadSourceFromServer(){
                   <div className="source-card" key={source.id}>
                     <p>
                       <b className="b-by">BY</b>
-                      <b className="b-username">{userName}</b>
+                      <b className="b-username"><Link to={`/user-interface/${userId}`}>{userName}</Link></b>
                       <b className="b-publishtime">{urlPubulishTime}</b>
                       阅读量：{urlReadCount} &nbsp;&nbsp;
                       评论量：{commentLength}

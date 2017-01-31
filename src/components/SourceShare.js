@@ -48,7 +48,7 @@ class SourceShare extends React.Component{
         <div className="source">
           <div className="source-title">
             <b>发布于</b>
-            <b className="b-username">{this.state.resource.username}</b> 
+            <b className="b-username">{this.state.resource.owner}</b> 
             <b className="b-publishtime">{this.state.urlPublishTime}</b>
           </div>
           <p>

@@ -5,18 +5,12 @@ import { LinkContainer } from 'react-router-bootstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { presets, RouteTransition } from 'react-router-transition';
 
+import LoginStatusUI from './LoginStatusUI';
 import './App.css';
 
 bootstrapUtils.addStyle(Navbar, 'custom');
 
 class App extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      navContent : "登陆"
-    }
-  }
 
   render() {
     return (
@@ -28,17 +22,15 @@ class App extends React.Component {
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <LinkContainer to="/source-share-list">
+            <LinkContainer to="/source-share-list" activeHref="active">
               <NavItem>资源分享</NavItem>
             </LinkContainer>
-            <LinkContainer to="/write-source">
+            <LinkContainer to="/write-source" activeHref="active">
               <NavItem>写文章</NavItem>
             </LinkContainer>
           </Nav>
           <Nav pullRight>
-            <LinkContainer to="/login">
-              <NavItem>{this.state.navContent}</NavItem>
-            </LinkContainer>
+            <LoginStatusUI></LoginStatusUI>
           </Nav>
         </Navbar>
         <div className="body">
