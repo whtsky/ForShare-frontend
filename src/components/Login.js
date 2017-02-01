@@ -50,7 +50,7 @@ class Login extends React.Component{
       ReactDOM.findDOMNode(this.refs.errorReminder).style.display = "block";
       ReactDOM.findDOMNode(this.refs.errorReminder).innerHTML = value;
     }
-    if(ReactDOM.findDOMNode(this.refs.userName).value === "" || ReactDOM.findDOMNode(this.refs.passWord).value === ""){
+    if(ReactDOM.findDOMNode(this.refs.userName).value.trim() === "" || ReactDOM.findDOMNode(this.refs.passWord).value === ""){
       setErrorContent("请输入用户名和密码！");
     }else{
       setErrorContent("用户名或密码错误！");

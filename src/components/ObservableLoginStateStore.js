@@ -2,25 +2,24 @@ import { observable } from 'mobx';
 import { create, persist } from 'mobx-persist';
 
 class ObservableTodoStore {
-  @persist('list') @observable todos = [
+  @persist('object') @observable store = 
     {
       task: "login",
       token: "",
       username: "登陆",
       completed: false
-    }
-  ];
+    };
 
   login = (username, token) => {
-    this.todos[0].token = token;
-    this.todos[0].username = username;
-    this.todos[0].completed = true;
+    this.store.token = token;
+    this.store.username = username;
+    this.store.completed = true;
   }
 
   logout = () => {
-    this.todos[0].token = "";
-    this.todos[0].username = "登陆";
-    this.todos[0].completed = false;
+    this.store.token = "";
+    this.store.username = "登陆";
+    this.store.completed = false;
   }
 }
 

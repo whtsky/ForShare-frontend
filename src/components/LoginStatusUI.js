@@ -13,8 +13,8 @@ class LoginStatusUI extends React.Component{
   }
 
   render(){
-    const loginStatus = LoginStateStore.todos.filter(todo => todo.task === "login")[0].completed;
-    const username = LoginStateStore.todos.filter(todo => todo.task === "login")[0].username;
+    const loginStatus = LoginStateStore.store.completed;
+    const username = LoginStateStore.store.username;
 
     if(loginStatus === false){
       return (
