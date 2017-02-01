@@ -4,6 +4,7 @@ import ajax from 'superagent';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import{ observer } from 'mobx-react';
+import { browserHistory } from 'react-router';
 
 import baseUrl from './config';
 import { LoginState } from '../store';
@@ -18,47 +19,71 @@ class WriteSource extends React.Component{
     super(props);
 
     this.state = {
-      publishContent: "",
       urlValuePlaceholde: "添加链接",
       introValuePlaceholde: "请输入关于链接的描述..",
       urlValueValidationState: null,
-      introValueValidationState: null
+      introValueValidationState: null,
     }
   }
 
   publish = () => {
+    
+    if(!LoginState.completed){
+      browserHistory.push('login');
+      return;
+    }
+    const urlMessage = ReactDOM.findDOMNode(this.refs.urlValue).value.trim(),
+      urlIntroduce = ReactDOM.findDOMNode(this.refs.introValue).value.trim();
+
+    if(!(urlMessage && urlIntroduce)){
+      this.errorReminder();
+      return;
+    }
+
     let date = new Date();
-    let year = date.getFullYear() > 10 ? date.getFullYear() : '0' + date.getFullYear();
-    let day = date.getDay() > 10 ?  date.getDay() : '0' + date.getDay();
-    let mouth = date.getMonth() > 10 ? date.getMonth() : '0' + date.getMonth();
-    let hour = date.getHours() > 10 ? date.getHours() : '0' + date.getHours();
-    let minute = date.getMinutes() > 10 ? date.getMinutes() : '0' + date.getMinutes();
+    let year = date.getFullYear() >= 10 ? date.getFullYear() : '0' + date.getFullYear();
+    let day = date.getDay() >= 10 ?  date.getDay() : '0' + date.getDay();
+    let mouth = date.getMonth() >= 10 ? date.getMonth() : '0' + date.getMonth();
+    let hour = date.getHours() >= 10 ? date.getHours() : '0' + date.getHours();
+    let minute = date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes();
     let publishTime = year + '-' + mouth + '-' + day + '-' + hour + ':' + minute;
 
     const content = {
-      username: "",
+      owner: LoginState.username,
       urlpublish_time: publishTime,
-      urlmessage: ReactDOM.findDOMNode(this.refs.urlValue).value,
-      urlintroduce: ReactDOM.findDOMNode(this.refs.introValue).value
+      urlmessage: urlMessage,
+      urlintroduce: urlIntroduce
     }
-    this.setState({ publishContent : content });
-
-    ajax.post(`${baseUrl}/urlpublish`)
-      .send(this.state.publishContent)
-      .set('Accept', 'application/json')
+    ajax.post(`${baseUrl}/urlpublish/`)
+      .send(content)
+      .set({'Authorization': `Token ${LoginState.token}`})
       .end((error, response) => {
-        if (error || !response.ok) {
+        if (error || response.status !== 201) {
           console.log('source push error!');
+          alert("发布失败，请稍后再试");
+          this.deleteInputValue();
         } else {
           console.log('yay got ' + JSON.stringify(response.body));
+          alert("发布成功");
+          self.deleteInputValue();
         }
       });
+    }
   }
 
+  deleteInputValue = () => { 
+    ReactDOM.findDOMNode(this.refs.urlValue).value = "";
+    ReactDOM.findDOMNode(this.refs.introValue).value = "";
+  }
+  
   errorReminder(){
-
-    let error = (stateName, value) => {
-      this.setState({ stateName: value });
+    if(ReactDOM.findDOMNode(this.refs.urlValue).value.trim() === ""){
+      this.setState({ urlValuePlaceholde : "链接不能为空" });
+      this.setState({ urlValueValidationState : "error" });
+    }
+    if(ReactDOM.findDOMNode(this.refs.introValue).value.trim() === ""){
+      this.setState({introValuePlaceholde : "描述不能为空" });
+      this.setState({ introValueValidationState : "error" });
     }
   }
 
@@ -68,10 +93,10 @@ class WriteSource extends React.Component{
         <h1 className="title-h">写文章</h1>
         <p className="title-p"><label className="of"></label>在这里添加链接<label className="on"></label></p>
         <form>
-          <FormGroup bsSize="large">
+          <FormGroup bsSize="large" validationState={this.state.urlValueValidationState}>
             <FormControl type="text" placeholder={this.state.urlValuePlaceholde} ref="urlValue" />
           </FormGroup>
-          <FormGroup controlId="formControlsTextarea" bsStyle="custom">
+          <FormGroup controlId="formControlsTextarea" bsStyle="custom" validationState={this.state.introValueValidationState}>
             <FormControl componentClass="textarea" placeholder={this.state.introValuePlaceholde} ref="introValue" />
           </FormGroup>
         </form>
