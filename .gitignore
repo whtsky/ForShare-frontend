@@ -13,12 +13,3 @@ build
 .DS_Store
 .env
 npm-debug.log
-.vscode/settings.json
-config/env.js
-config/jest/cssTransform.js
-config/paths.js
-scripts/test.js
-scripts/start.js
-config/polyfills.js
-config/jest/fileTransform.js
-scripts/build.js

@@ -3,19 +3,26 @@ import ReactDOM from 'react-dom';
 import ajax from 'superagent';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+import{ observer } from 'mobx-react';
 
+import LoginStateStore from './ObservableLoginStateStore';
 import baseUrl from './config';
 import './WriteSource.css';
 
 bootstrapUtils.addStyle(FormControl, 'custom');
 
+@observer
 class WriteSource extends React.Component{
 
   constructor(props){
     super(props);
 
     this.state = {
-      publishContent: ""
+      publishContent: "",
+      urlValuePlaceholde: "添加链接",
+      introValuePlaceholde: "请输入关于链接的描述..",
+      urlValueValidationState: null,
+      introValueValidationState: null
     }
   }
 
@@ -48,6 +55,13 @@ class WriteSource extends React.Component{
       });
   }
 
+  errorReminder(){
+
+    let error = (stateName, value) => {
+      this.setState({ stateName: value });
+    }
+  }
+
   render(){
     return(
       <div key="write-source" className="write-source">
@@ -55,10 +69,10 @@ class WriteSource extends React.Component{
         <p className="title-p"><label className="of"></label>在这里添加链接<label className="on"></label></p>
         <form>
           <FormGroup bsSize="large">
-            <FormControl type="text" placeholder="添加链接" ref="urlValue" />
+            <FormControl type="text" placeholder={this.state.urlValuePlaceholde} ref="urlValue" />
           </FormGroup>
           <FormGroup controlId="formControlsTextarea" bsStyle="custom">
-            <FormControl componentClass="textarea" placeholder="请输入关于链接的描述.." ref="introValue" />
+            <FormControl componentClass="textarea" placeholder={this.state.introValuePlaceholde} ref="introValue" />
           </FormGroup>
         </form>
         <Button bsStyle="danger" bsSize="large" onClick={this.publish.bind(this)}>提交</Button>
