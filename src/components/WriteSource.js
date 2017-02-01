@@ -5,8 +5,8 @@ import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import{ observer } from 'mobx-react';
 
-import LoginStateStore from './ObservableLoginStateStore';
 import baseUrl from './config';
+import { LoginState } from '../store';
 import './WriteSource.css';
 
 bootstrapUtils.addStyle(FormControl, 'custom');
@@ -26,7 +26,7 @@ class WriteSource extends React.Component{
     }
   }
 
-  publish(){
+  publish = () => {
     let date = new Date();
     let year = date.getFullYear() > 10 ? date.getFullYear() : '0' + date.getFullYear();
     let day = date.getDay() > 10 ?  date.getDay() : '0' + date.getDay();
@@ -46,12 +46,12 @@ class WriteSource extends React.Component{
     ajax.post(`${baseUrl}/urlpublish`)
       .send(this.state.publishContent)
       .set('Accept', 'application/json')
-      .end(function(error, response){
-      if (error || !response.ok) {
-        console.log('source push error!');
-      } else {
-        console.log('yay got ' + JSON.stringify(response.body));
-      }
+      .end((error, response) => {
+        if (error || !response.ok) {
+          console.log('source push error!');
+        } else {
+          console.log('yay got ' + JSON.stringify(response.body));
+        }
       });
   }
 
@@ -75,7 +75,7 @@ class WriteSource extends React.Component{
             <FormControl componentClass="textarea" placeholder={this.state.introValuePlaceholde} ref="introValue" />
           </FormGroup>
         </form>
-        <Button bsStyle="danger" bsSize="large" onClick={this.publish.bind(this)}>提交</Button>
+        <Button bsStyle="danger" bsSize="large" onClick={this.publish}>提交</Button>
       </div>
     )
   }

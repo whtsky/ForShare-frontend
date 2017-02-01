@@ -3,29 +3,26 @@ import { NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import{ observer } from 'mobx-react';
 
-import LoginStateStore from './ObservableLoginStateStore';
+import { LoginState } from '../store';
 
 @observer
 class LoginStatusUI extends React.Component{
 
-  logOut = () => {
-    LoginStateStore.logout();
+  logout = () => {
+    LoginState.logout();
   }
 
   render(){
-    const loginStatus = LoginStateStore.todos.filter(todo => todo.task === "login")[0].completed;
-    const username = LoginStateStore.todos.filter(todo => todo.task === "login")[0].username;
-
-    if(loginStatus === false){
+    if(LoginState.completed && LoginState.username){
       return (
         <LinkContainer to="login" activeHref="active">
-          <NavItem>{username}</NavItem>
+          <NavItem>{LoginState.username}</NavItem>
         </LinkContainer>
       )
     }else{
       return(
-        <NavDropdown title={username} id="basic-nav-dropdown">
-          <MenuItem eventKey={1} onClick={this.logOut.bind(this)}>退出登陆</MenuItem>
+        <NavDropdown title={LoginState.username} id="basic-nav-dropdown">
+          <MenuItem eventKey={1} onClick={this.logout}>退出登陆</MenuItem>
         </NavDropdown>
       )
     }
