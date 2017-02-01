@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import{ observer } from 'mobx-react';
 import { browserHistory } from 'react-router';
+import moment from 'moment';
 
 import baseUrl from './config';
 import { LoginState } from '../store';
@@ -33,24 +34,16 @@ class WriteSource extends React.Component{
       return;
     }
     const urlMessage = ReactDOM.findDOMNode(this.refs.urlValue).value.trim(),
-      urlIntroduce = ReactDOM.findDOMNode(this.refs.introValue).value.trim();
+           urlIntroduce = ReactDOM.findDOMNode(this.refs.introValue).value.trim();
 
     if(!(urlMessage && urlIntroduce)){
       this.errorReminder();
       return;
     }
 
-    let date = new Date();
-    let year = date.getFullYear() >= 10 ? date.getFullYear() : '0' + date.getFullYear();
-    let day = date.getDay() >= 10 ?  date.getDay() : '0' + date.getDay();
-    let mouth = date.getMonth() >= 10 ? date.getMonth() : '0' + date.getMonth();
-    let hour = date.getHours() >= 10 ? date.getHours() : '0' + date.getHours();
-    let minute = date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes();
-    let publishTime = year + '-' + mouth + '-' + day + '-' + hour + ':' + minute;
-
     const content = {
       owner: LoginState.username,
-      urlpublish_time: publishTime,
+      urlpublish_time: moment().format("YYYY-MM-DD HH:mm"),
       urlmessage: urlMessage,
       urlintroduce: urlIntroduce
     }
@@ -65,11 +58,10 @@ class WriteSource extends React.Component{
         } else {
           console.log('yay got ' + JSON.stringify(response.body));
           alert("发布成功");
-          self.deleteInputValue();
+          this.deleteInputValue();
         }
       });
     }
-  }
 
   deleteInputValue = () => { 
     ReactDOM.findDOMNode(this.refs.urlValue).value = "";
@@ -82,7 +74,7 @@ class WriteSource extends React.Component{
       this.setState({ urlValueValidationState : "error" });
     }
     if(ReactDOM.findDOMNode(this.refs.introValue).value.trim() === ""){
-      this.setState({introValuePlaceholde : "描述不能为空" });
+      this.setState({ introValuePlaceholde : "描述不能为空" });
       this.setState({ introValueValidationState : "error" });
     }
   }

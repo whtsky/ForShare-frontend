@@ -2,12 +2,19 @@ import React from 'react';
 import ajax from 'superagent';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+import { Link } from 'react-router';
+import moment from 'moment';
+import ReactDOM from 'react-dom';
+import{ observer } from 'mobx-react';
+import { browserHistory } from 'react-router';
 
+import { LoginState } from '../store';
 import baseUrl from './config';
 import './SourceShare.css';
 
 bootstrapUtils.addStyle(FormControl, 'custom');
 
+@observer
 class SourceShare extends React.Component{
   constructor(props){
     super(props);
@@ -16,7 +23,9 @@ class SourceShare extends React.Component{
       resource: [],
       comments: [],
       urlPublishTime: 0,
-      commentLength: 0
+      commentLength: 0,
+      inputValidationState: null,
+      inputPlaceholder: "写下你的评论.."
     }
   }
 
@@ -42,13 +51,29 @@ class SourceShare extends React.Component{
     })
   }
 
+  pushComment = () => {
+    if(!LoginState.completed){
+      browserHistory.push('login');
+      return;
+    }else{
+      if(!ReactDOM.findDOMNode(this.refs.commentValue).trim()){
+
+      }
+    }
+  }
+
+  errorRemminder = () => {
+    this.setState({ inputPlaceholder : "评论不能为空" });
+    this.setState({ inputValidationState : "error" });
+  }
+
   render(){
     return(
       <div className="source-share">
         <div className="source">
           <div className="source-title">
             <b>发布于</b>
-            <b className="b-username">{this.state.resource.owner}</b> 
+            <b className="b-username"><Link to={`user-interface/${this.state.resource.username}`}>{this.state.resource.owner}</Link></b> 
             <b className="b-publishtime">{this.state.urlPublishTime}</b>
           </div>
           <p>
@@ -78,8 +103,8 @@ class SourceShare extends React.Component{
           </div>
           <div className="write-comment">
             <form>
-              <FormGroup bsStyle="custom">
-                <FormControl type="text" placeholder="写下你的评论.." />
+              <FormGroup bsStyle="custom" validationState={this.state.inputValidationState}>
+                <FormControl type="text" placeholder={this.state.inputPlaceholder} ref="commentValue" />
               </FormGroup>
             </form>
             <Button bsStyle="danger">提交</Button>

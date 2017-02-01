@@ -21,7 +21,7 @@ class SourceShareList extends React.Component{
   }
 
 loadSourceFromServer(){
-  ajax.get(`${baseUrl}/urlpublish`)
+  ajax.get(`${baseUrl}/urlpublish/`)
     .query({ limit: this.state.perPage, offset: this.state.offset })
     .end((error, response) => {
       if(!error && response){
@@ -68,7 +68,7 @@ loadSourceFromServer(){
                   <div className="source-card" key={source.id}>
                     <p>
                       <b className="b-by">BY</b>
-                      <b className="b-username"><Link to={`/user-interface/${userId}`}>{userName}</Link></b>
+                      <b className="b-username"><Link to={`user-interface/${userId}`}>{userName}</Link></b>
                       <b className="b-publishtime">{urlPubulishTime}</b>
                       阅读量：{urlReadCount} &nbsp;&nbsp;
                       评论量：{commentLength}

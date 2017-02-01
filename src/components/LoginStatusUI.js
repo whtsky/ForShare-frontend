@@ -13,10 +13,10 @@ class LoginStatusUI extends React.Component{
   }
 
   render(){
-    if(LoginState.completed && LoginState.username){
+    if(!LoginState.completed){
       return (
         <LinkContainer to="login" activeHref="active">
-          <NavItem>{LoginState.username}</NavItem>
+          <NavItem>登陆</NavItem>
         </LinkContainer>
       )
     }else{

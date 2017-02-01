@@ -39,6 +39,17 @@ class Login extends React.Component{
         } else {
           LoginState.login(response.body.username, response.body.token);
           browserHistory.push('source-share-list');
+          ajax.get(`${baseUrl}/users/`)
+          .end((error, response) => {
+            if (!error && response){
+              alert(response.body.results.filter((user) => user.username === content.username).id);
+              const id = response.body.results.filter(user => user.username === content.username).id;
+              LoginState.setUserId(id)
+              alert (LoginState.userid);
+            }else{
+              console.log("id fetch error!");
+            }
+          })
         };
       });
   }

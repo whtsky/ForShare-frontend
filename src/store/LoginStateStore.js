@@ -5,6 +5,7 @@ import { persist } from 'mobx-persist';
 export default class LoginStateStore {
     @persist @observable token = '';
     @persist @observable username = '';
+    @persist @observable userid = 0;
     @computed get completed() {
         return this.token !== '';
     }
@@ -13,9 +14,13 @@ export default class LoginStateStore {
         this.token = token;
         this.username = username;
     }
+    setUserId(id){
+        this.userid = id;
+    }
 
     logout() {
         this.token = "";
         this.username = "";
+        this.userid = 0;
     }
 }
