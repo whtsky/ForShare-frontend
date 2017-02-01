@@ -6,8 +6,8 @@ import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import{ observer } from 'mobx-react';
 import { browserHistory } from 'react-router';
 
-import LoginStateStore from './ObservableLoginStateStore';
 import baseUrl from './config';
+import { LoginState } from '../store';
 import './WriteSource.css';
 
 bootstrapUtils.addStyle(FormControl, 'custom');
@@ -26,47 +26,48 @@ class WriteSource extends React.Component{
     }
   }
 
-  publish(){
+  publish = () => {
     
-    var self = this;
-
-    if(LoginStateStore.store.completed === false){
+    if(!LoginState.completed){
       browserHistory.push('login');
-    }else{
-      if(ReactDOM.findDOMNode(this.refs.urlValue).value.trim() === "" || ReactDOM.findDOMNode(this.refs.introValue).value.trim() === ""){
-        this.errorReminder();
-    }else{
-      let date = new Date();
-      let year = date.getFullYear() >= 10 ? date.getFullYear() : '0' + date.getFullYear();
-      let day = date.getDay() >= 10 ?  date.getDay() : '0' + date.getDay();
-      let mouth = date.getMonth() >= 10 ? date.getMonth() : '0' + date.getMonth();
-      let hour = date.getHours() >= 10 ? date.getHours() : '0' + date.getHours();
-      let minute = date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes();
-      let publishTime = year + '-' + mouth + '-' + day + '-' + hour + ':' + minute;
+      return;
+    }
+    const urlMessage = ReactDOM.findDOMNode(this.refs.urlValue).value.trim(),
+      urlIntroduce = ReactDOM.findDOMNode(this.refs.introValue).value.trim();
 
-      const content = {
-        owner: LoginStateStore.store.username,
-        urlpublish_time: publishTime,
-        urlmessage: ReactDOM.findDOMNode(this.refs.urlValue).value.trim(),
-        urlintroduce: ReactDOM.findDOMNode(this.refs.introValue).value.trim()
-      }
-      const token = LoginStateStore.store.token;
+    if(!(urlMessage && urlIntroduce)){
+      this.errorReminder();
+      return;
+    }
 
-      ajax.post(`${baseUrl}/urlpublish/`)
-        .send(content)
-        .set({'Authorization': "Token " + token})
-        .end(function(error, response){
+    let date = new Date();
+    let year = date.getFullYear() >= 10 ? date.getFullYear() : '0' + date.getFullYear();
+    let day = date.getDay() >= 10 ?  date.getDay() : '0' + date.getDay();
+    let mouth = date.getMonth() >= 10 ? date.getMonth() : '0' + date.getMonth();
+    let hour = date.getHours() >= 10 ? date.getHours() : '0' + date.getHours();
+    let minute = date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes();
+    let publishTime = year + '-' + mouth + '-' + day + '-' + hour + ':' + minute;
+
+    const content = {
+      owner: LoginState.username,
+      urlpublish_time: publishTime,
+      urlmessage: urlMessage,
+      urlintroduce: urlIntroduce
+    }
+    ajax.post(`${baseUrl}/urlpublish/`)
+      .send(content)
+      .set({'Authorization': `Token ${LoginState.token}`})
+      .end((error, response) => {
         if (error || response.status !== 201) {
           console.log('source push error!');
           alert("发布失败，请稍后再试");
-          self.deleteInputValue();
+          this.deleteInputValue();
         } else {
           console.log('yay got ' + JSON.stringify(response.body));
           alert("发布成功");
           self.deleteInputValue();
         }
-        });
-      }
+      });
     }
   }
 
@@ -99,7 +100,7 @@ class WriteSource extends React.Component{
             <FormControl componentClass="textarea" placeholder={this.state.introValuePlaceholde} ref="introValue" />
           </FormGroup>
         </form>
-        <Button bsStyle="danger" bsSize="large" onClick={this.publish.bind(this)}>提交</Button>
+        <Button bsStyle="danger" bsSize="large" onClick={this.publish}>提交</Button>
       </div>
     )
   }

@@ -6,7 +6,7 @@ import ajax from 'superagent';
 import { browserHistory } from 'react-router';
 import{ observer } from 'mobx-react';
 
-import LoginStateStore from './ObservableLoginStateStore';
+import { LoginState } from '../store';
 import baseUrl from './config';
 import './Login.css';
 
@@ -25,8 +25,6 @@ class Login extends React.Component{
   }
   
   pushUserMessage(){
-    var self = this;
-
     const content = {
       username: ReactDOM.findDOMNode(this.refs.userName).value,
       password: ReactDOM.findDOMNode(this.refs.passWord).value
@@ -34,14 +32,14 @@ class Login extends React.Component{
 
     ajax.post(`${baseUrl}/login/`)
       .send(content)
-      .end(function(error, response){
-      if (error || response.status !== 200) {
-        console.log('login failed!');
-        self.errorReminder();
-      } else {
-        LoginStateStore.login(response.body.username, response.body.token);
-        browserHistory.push('source-share-list');
-      };
+      .end((error, response) => {
+        if (error || response.status !== 200) {
+          console.log('login failed!');
+          this.errorReminder();
+        } else {
+          LoginState.login(response.body.username, response.body.token);
+          browserHistory.push('source-share-list');
+        };
       });
   }
 
