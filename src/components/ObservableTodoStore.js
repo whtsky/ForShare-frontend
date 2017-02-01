@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { create, persist } from 'mobx-persist'
+import { create, persist } from 'mobx-persist';
 
 class ObservableTodoStore {
   @persist('list') @observable todos = [
@@ -25,7 +25,9 @@ class ObservableTodoStore {
 }
 
 const persistStore = create({
-    storage: AsyncStorage 
+    storage: localStorage 
 })
 
-export const todoStore = persistStore('store', new ObservableTodoStore);
+const todoStore = persistStore('store', new ObservableTodoStore);
+
+export default todoStore;

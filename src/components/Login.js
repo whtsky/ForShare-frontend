@@ -4,6 +4,7 @@ import { FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import ajax from 'superagent';
 import { browserHistory } from 'react-router';
+import{ observer } from 'mobx-react';
 
 import todoStore from './ObservableTodoStore';
 import baseUrl from './config';
@@ -13,6 +14,7 @@ bootstrapUtils.addStyle(InputGroup.Addon, 'custom-user');
 bootstrapUtils.addStyle(InputGroup.Addon, 'custom-password');
 bootstrapUtils.addStyle(InputGroup, 'custom');
 
+@observer
 class Login extends React.Component{
   constructor(props){
     super(props);
@@ -37,8 +39,7 @@ class Login extends React.Component{
         console.log('login failed!');
         self.errorReminder();
       } else {
-        todoStore.store.login(response.body.username, response.body.token);
-        alert(todoStore.store.todos[0].username);
+        todoStore.login(response.body.username, response.body.token);
         browserHistory.push('source-share-list');
       };
       });
