@@ -24,10 +24,8 @@ class ObservableTodoStore {
   }
 }
 
-const persistStore = create({
-    storage: localStorage 
-})
+const persistStore = create();
 
-const todoStore = persistStore('store', new ObservableTodoStore);
+const LoginStateStore = persistStore('store', new ObservableTodoStore);
 
-export default todoStore;
+export default LoginStateStore;

@@ -6,7 +6,7 @@ import ajax from 'superagent';
 import { browserHistory } from 'react-router';
 import{ observer } from 'mobx-react';
 
-import todoStore from './ObservableTodoStore';
+import LoginStateStore from './ObservableLoginStateStore';
 import baseUrl from './config';
 import './Login.css';
 
@@ -39,7 +39,7 @@ class Login extends React.Component{
         console.log('login failed!');
         self.errorReminder();
       } else {
-        todoStore.login(response.body.username, response.body.token);
+        LoginStateStore.login(response.body.username, response.body.token);
         browserHistory.push('source-share-list');
       };
       });

@@ -3,18 +3,18 @@ import { NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import{ observer } from 'mobx-react';
 
-import todoStore from './ObservableTodoStore';
+import LoginStateStore from './ObservableLoginStateStore';
 
 @observer
 class LoginStatusUI extends React.Component{
 
   logOut = () => {
-    todoStore.logout();
+    LoginStateStore.logout();
   }
 
   render(){
-    const loginStatus = todoStore.todos.filter(todo => todo.task === "login")[0].completed;
-    const username = todoStore.todos.filter(todo => todo.task === "login")[0].username;
+    const loginStatus = LoginStateStore.todos.filter(todo => todo.task === "login")[0].completed;
+    const username = LoginStateStore.todos.filter(todo => todo.task === "login")[0].username;
 
     if(loginStatus === false){
       return (

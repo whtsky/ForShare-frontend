@@ -17,10 +17,8 @@ npm-debug.log
 config/env.js
 config/jest/cssTransform.js
 config/paths.js
-config/webpack.config.prod.js
 scripts/test.js
 scripts/start.js
-config/webpack.config.dev.js
 config/polyfills.js
 config/jest/fileTransform.js
 scripts/build.js
