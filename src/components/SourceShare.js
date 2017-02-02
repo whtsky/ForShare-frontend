@@ -18,10 +18,10 @@ bootstrapUtils.addStyle(FormControl, 'custom');
 class SourceShare extends React.Component{
   constructor(props){
     super(props);
-
     this.state= {
       resource: [],
       comments: [],
+      commentsOwnerNames: [],
       urlPublishTime: 0,
       commentLength: 0,
       inputValidationState: null,
@@ -44,7 +44,25 @@ class SourceShare extends React.Component{
     ajax.get(`${baseUrl}/urlcomment/?comment1=${this.props.params.id}`)
     .end((error, response) => {
       if(!error && response){
-        this.setState({ comments : response.body.results });
+        const Comments = response.body.results;
+        const commentsOwnerId = [];
+        for(let comment in Comments){
+          commentsOwnerId.push(Comments[comment].username);
+        }
+
+        ajax.get(`${baseUrl}/users/`)
+        .end((error, response) => {
+          if(!error && response){
+            const ownerNames = [];
+            for(let ownerid in commentsOwnerId){
+              ownerNames.push(response.body.results.filter(user => user.id === commentsOwnerId[ownerid])[0].username);
+            }
+            for(let i = 0; i < ownerNames.length; i++){
+              Comments[i].ownername = ownerNames[i];
+            }
+            this.setState({ comments : Comments });
+          }
+        })
       }else{
         console.log("comments fetching error");
       }
@@ -57,7 +75,10 @@ class SourceShare extends React.Component{
       return;
     }else{
       if(!ReactDOM.findDOMNode(this.refs.commentValue).trim()){
-
+        this.errorRemminder();
+      }else{
+        const content = {
+        }
       }
     }
   }
@@ -65,6 +86,10 @@ class SourceShare extends React.Component{
   errorRemminder = () => {
     this.setState({ inputPlaceholder : "评论不能为空" });
     this.setState({ inputValidationState : "error" });
+  }
+
+  deleteInputValue(){
+    ReactDOM.findDOMNode(this.refs.commentValue).value = "";
   }
 
   render(){
@@ -76,25 +101,28 @@ class SourceShare extends React.Component{
             <b className="b-username"><Link to={`user-interface/${this.state.resource.username}`}>{this.state.resource.owner}</Link></b> 
             <b className="b-publishtime">{this.state.urlPublishTime}</b>
           </div>
-          <p>
-            {this.state.resource.urlintroduce}
-          </p>
-          <p>
-            <a href={this.state.resource.urlmessage}>{this.state.resource.urlmessage}</a>
-          </p>
+          <div className="source-content">
+            <p>
+              {this.state.resource.urlintroduce}
+            </p>
+            <p>
+              <a href={this.state.resource.urlmessage}>{this.state.resource.urlmessage}</a>
+            </p>
+          </div>
         </div>
         <div className="comment-source">
           <div><h5>{this.state.commentLength} 条评论</h5></div>
           <div className="comment-list">
             {
               this.state.comments.map((comment, index) => {
-                const username = comment.username;
+                const username = comment.ownername;
                 const commentTime = comment.comment_time.slice(0, 16);
                 const content = comment.content;
+                const userId = comment.username;
 
                 return (
                   <div className="comment" key={index}>
-                    <p><b>来自</b><b className="b-comment-username">{username}</b><b className="b-comment-time">{commentTime}</b></p>
+                    <p><b>来自</b><b className="b-comment-username"><Link to={`user-interface/${userId}`}>{username}</Link></b><b className="b-comment-time">{commentTime}</b></p>
                     <p>{content}</p>
                   </div>
                 )
@@ -108,7 +136,7 @@ class SourceShare extends React.Component{
               </FormGroup>
             </form>
             <Button bsStyle="danger">提交</Button>
-            <Button>取消</Button>
+            <Button onClick={this.deleteInputValue.bind(this)}>取消</Button>
           </div>
         </div>
       </div>  

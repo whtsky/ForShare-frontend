@@ -42,12 +42,12 @@ class Login extends React.Component{
           ajax.get(`${baseUrl}/users/`)
           .end((error, response) => {
             if (!error && response){
-              alert(response.body.results.filter((user) => user.username === content.username).id);
-              const id = response.body.results.filter(user => user.username === content.username).id;
-              LoginState.setUserId(id)
-              alert (LoginState.userid);
+              LoginState.userid = response.body.results.filter(user => user.username === content.username)[0].id;
             }else{
               console.log("id fetch error!");
+              alert("登陆失败，请稍后再试");
+              ReactDOM.findDOMNode(this.refs.userName).value = "";
+              ReactDOM.findDOMNode(this.refs.passWord).value = "";
             }
           })
         };

@@ -15,7 +15,7 @@
   flex-direction: column;
 }
 .source .source-title{
-  margin-bottom: 1.4em;
+  margin-top: -1em;
 }
 .source b{
   margin-right: 1em;
@@ -24,27 +24,41 @@
   font-size: 16px;
   font-family: 'Raleway', sans-serif;
 }
-.source .b-username{
+.source .b-username a{
   font-size: 14px;
-  color: #fa4b2a; 
+}
+.source-share .source-content{
+  margin-top: 1em;
+  padding: 1em 1em 0.6em 1em;
+  border: 1px solid #cccccc;
+  width: 100%;
+  border-radius: 4px;
 }
 .source-share .comment-source{
   background-color: #fff;
   padding: 2em;
+}
+.source-share .comment{
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0.1em 0.5em;
+  margin-top: 1em;
 }
 .source-share .comment b{
   margin-right: 1em;
 }
 .source-share .comment .b-comment-username{
   font-size: 14px;
-  color: #fa4b2a; 
 }
 .source-share .comment .b-comment-time{
   font-size: 14px;
   font-family: 'Raleway', sans-serif;
 }
+.source-share .write-comment{
+  margin-top: 1em;
+}
 .source-share .write-comment .form-group-custom{
-  width: 98%;
+  width: 100%;
 }
 .source-share .write-comment button{
   margin-right: 0.6em;

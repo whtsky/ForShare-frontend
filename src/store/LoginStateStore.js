@@ -14,13 +14,10 @@ export default class LoginStateStore {
         this.token = token;
         this.username = username;
     }
-    setUserId(id){
-        this.userid = id;
-    }
 
     logout() {
-        this.token = "";
-        this.username = "";
+        this.token = '';
+        this.username = '';
         this.userid = 0;
     }
 }
