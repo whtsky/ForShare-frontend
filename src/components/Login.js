@@ -42,7 +42,7 @@ class Login extends React.Component{
           ajax.get(`${baseUrl}/users/`)
           .end((error, response) => {
             if (!error && response){
-              LoginState.userid = response.body.results.filter(user => user.username === content.username)[0].id;
+              LoginState.userid = response.body.results.find(user => user.username === content.username).id;
             }else{
               console.log("id fetch error!");
               alert("登陆失败，请稍后再试");
