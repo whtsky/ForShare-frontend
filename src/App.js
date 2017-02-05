@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import LoginStatusUI from './LoginStatusUI';
+import LoginStatusUI from './components/LoginStatusUI';
 import './App.css';
 
 bootstrapUtils.addStyle(Navbar, 'custom');
@@ -20,10 +20,10 @@ class App extends React.Component {
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <LinkContainer to="/source-share-list" activeHref="active">
+            <LinkContainer to="/sourcelist" activeHref="active">
               <NavItem>资源分享</NavItem>
             </LinkContainer>
-            <LinkContainer to="/write-source" activeHref="active">
+            <LinkContainer to="/new" activeHref="active">
               <NavItem>写文章</NavItem>
             </LinkContainer>
           </Nav>

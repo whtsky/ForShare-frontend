@@ -68,13 +68,13 @@ loadSourceFromServer(){
                   <div className="source-card" key={source.id}>
                     <p>
                       <b className="b-by">BY</b>
-                      <b className="b-username"><Link to={`user-interface/${userId}`}>{userName}</Link></b>
+                      <b className="b-username"><Link to={`user/${userId}`}>{userName}</Link></b>
                       <b className="b-publishtime">{urlPubulishTime}</b>
                       阅读量：{urlReadCount} &nbsp;&nbsp;
                       评论量：{commentLength}
                     </p>
                     <p>{urlintroduce}</p>
-                    <LinkContainer to={`/source-share/results/${id}`}>
+                    <LinkContainer to={`source/${id}`}>
                       <NavItem>                           {/* 防止<Button> 被自动转换成<a>导致样式混乱 */}
                         <Button bsStyle="danger">了解详情</Button>
                       </NavItem>

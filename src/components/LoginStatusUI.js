@@ -22,6 +22,9 @@ class LoginStatusUI extends React.Component{
     }else{
       return(
         <NavDropdown title={LoginState.username} id="basic-nav-dropdown">
+          <LinkContainer to={`user/${LoginState.userid}`}>
+            <MenuItem eventKey={2}>个人主页</MenuItem>
+          </LinkContainer>
           <MenuItem eventKey={1} onClick={this.logout}>退出登陆</MenuItem>
         </NavDropdown>
       )

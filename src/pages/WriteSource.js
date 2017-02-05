@@ -5,7 +5,6 @@ import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import{ observer } from 'mobx-react';
 import { browserHistory } from 'react-router';
-import moment from 'moment';
 
 import baseUrl from './config';
 import { LoginState } from '../store';
@@ -43,7 +42,6 @@ class WriteSource extends React.Component{
 
     const content = {
       owner: LoginState.username,
-      urlpublish_time: moment().format("YYYY-MM-DD HH:mm"),
       urlmessage: urlMessage,
       urlintroduce: urlIntroduce
     }

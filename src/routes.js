@@ -1,21 +1,21 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import App from './components/App';
-import SourceShareList from './components/SourceShareList';
-import SourceShare from './components/SourceShare';
-import WriteSource from './components/WriteSource';
-import Login from './components/Login';
-import UserInterface from './components/UserInterface';
+import App from './App';
+import SourceShareList from './pages/SourceShareList';
+import SourceShare from './pages/SourceShare';
+import WriteSource from './pages/WriteSource';
+import Login from './pages/Login';
+import UserInterface from './pages/UserInterface';
 
 const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={SourceShareList} />
-    <Route path="source-share-list" component={SourceShareList} />
-    <Route path="source-share/results/:id" component={SourceShare} />
-    <Route path="write-source" component={WriteSource} />
+    <Route path="sourcelist" component={SourceShareList} />
+    <Route path="source/:id" component={SourceShare} />
+    <Route path="new" component={WriteSource} />
     <Route path="login" component={Login} />
-    <Route path="user-interface/:id" component={UserInterface} />
+    <Route path="user/:id" component={UserInterface} />
   </Route> 
 );
 

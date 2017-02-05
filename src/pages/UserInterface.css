@@ -1,0 +1,25 @@
+.user{
+  margin: auto;
+  width: 68%;
+}
+.user .user-information{
+  background: #fff;
+  padding: 1em;
+}
+.user .user-information .user-name{
+  font-size: 28px;
+}
+.user .user-publish{
+  background: #fff;
+  margin-top: 1em;
+  padding: 1em;
+}
+.user .user-publish .publish-div-title{
+  font-size: 20px;
+}
+.user .user-publish .publish{
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0.1em 0.5em;
+  margin-top: 1em;
+}
