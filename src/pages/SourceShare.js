@@ -68,9 +68,6 @@ class SourceShare extends React.Component{
     }else{
       if(!ReactDOM.findDOMNode(this.refs.commentValue).trim()){
         this.errorRemminder();
-      }else{
-        const content = {
-        }
       }
     }
   }
