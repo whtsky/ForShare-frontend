@@ -45,7 +45,7 @@
 }
 .source-card button{
   margin-top: 1em;
-  width: 12%;
+  min-width: 12%;
   border-radius: 0;
 }
 .source-card b{
