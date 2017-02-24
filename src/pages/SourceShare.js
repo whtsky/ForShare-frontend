@@ -47,23 +47,16 @@ class SourceShare extends React.Component{
     ajax.get(`${baseUrl}/urlcomment/?comment1=${this.props.params.id}`)
     .end((error, response) => {
       if(!error && response){
-        const Comments = response.body.results;
-        const commentsOwnerId = [];
-        for(let comment in Comments){
-          commentsOwnerId.push(Comments[comment].username);
-        }
-
+        const rawComments = response.body.results;
         ajax.get(`${baseUrl}/users/`)
         .end((error, response) => {
           if(!error && response){
-            const ownerNames = [];
-            for(let ownerid in commentsOwnerId){
-              ownerNames.push(response.body.results.filter(user => user.id === commentsOwnerId[ownerid])[0].username);
-            }
-            for(let i = 0; i < ownerNames.length; i++){
-              Comments[i].ownername = ownerNames[i];
-            }
-            this.setState({ comments : Comments });
+            const users = response.body.results
+            const comments = rawComments.map(comment => ({
+              ...comment,
+              ownername: users.find(user => user.id === comment.username).username
+            }))
+            this.setState({ comments });
           }
         })
       }else{
