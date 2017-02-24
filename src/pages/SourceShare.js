@@ -87,7 +87,7 @@ class SourceShare extends React.Component{
         <div className="source">
           <div className="source-title">
             <b>发布于</b>
-            <b className="b-username"><Link to={`user-interface/${this.state.resource.username}`}>{this.state.resource.owner}</Link></b> 
+            <b className="b-username"><Link to={`/user/${this.state.resource.username}`}>{this.state.resource.owner}</Link></b> 
             <b className="b-publishtime">{this.state.urlPublishTime}</b>
           </div>
           <div className="source-content">
@@ -111,7 +111,7 @@ class SourceShare extends React.Component{
 
                 return (
                   <div className="comment" key={index}>
-                    <p><b>来自</b><b className="b-comment-username"><Link to={`user-interface/${userId}`}>{username}</Link></b><b className="b-comment-time">{commentTime}</b></p>
+                    <p><b>来自</b><b className="b-comment-username"><Link to={`/user/${userId}`}>{username}</Link></b><b className="b-comment-time">{commentTime}</b></p>
                     <p>{content}</p>
                   </div>
                 )

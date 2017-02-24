@@ -8,6 +8,37 @@ import './App.css';
 
 bootstrapUtils.addStyle(Navbar, 'custom');
 
+function GetIEVersion() {
+  var sAgent = window.navigator.userAgent;
+  var Idx = sAgent.indexOf("MSIE");
+
+  // If IE, return version number.
+  if (Idx > 0) 
+    return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
+
+  // If IE 11 then look for Updated user agent string.
+  else if (sAgent.indexOf("rv:11") > 0) 
+    return 11;
+
+  else
+    return 0; //It is not IE
+}
+
+
+class Footer extends React.Component{
+  render() {
+    let browser = navigator.appName;
+    console.log(browser);
+    if(GetIEVersion() > 0){
+      return null;
+    }else{
+      return(
+        <footer>ForShare</footer>
+      )
+    }
+  }
+}
+
 class App extends React.Component {
 
   render() {
@@ -34,7 +65,7 @@ class App extends React.Component {
         <div className="body">
           { this.props.children }
         </div>
-        <footer>ForShare</footer>
+        <Footer />
       </div>
     );
   }
