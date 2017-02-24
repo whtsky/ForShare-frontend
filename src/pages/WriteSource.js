@@ -20,9 +20,7 @@ class WriteSource extends React.Component{
 
     this.state = {
       urlValuePlaceholde: "添加链接",
-      introValuePlaceholde: "请输入关于链接的描述..",
       urlValueValidationState: null,
-      introValueValidationState: null,
     }
   }
 
@@ -32,10 +30,9 @@ class WriteSource extends React.Component{
       browserHistory.push('login');
       return;
     }
-    const urlMessage = ReactDOM.findDOMNode(this.refs.urlValue).value.trim(),
-           urlIntroduce = ReactDOM.findDOMNode(this.refs.introValue).value.trim();
+    const urlMessage = ReactDOM.findDOMNode(this.refs.urlValue).value.trim();
 
-    if(!(urlMessage && urlIntroduce)){
+    if(!urlMessage){
       this.errorReminder();
       return;
     }
@@ -43,7 +40,6 @@ class WriteSource extends React.Component{
     const content = {
       owner: LoginState.username,
       urlmessage: urlMessage,
-      urlintroduce: urlIntroduce
     }
     ajax.post(`${baseUrl}/urlpublish/`)
       .send(content)
@@ -71,10 +67,6 @@ class WriteSource extends React.Component{
       this.setState({ urlValuePlaceholde : "链接不能为空" });
       this.setState({ urlValueValidationState : "error" });
     }
-    if(ReactDOM.findDOMNode(this.refs.introValue).value.trim() === ""){
-      this.setState({ introValuePlaceholde : "描述不能为空" });
-      this.setState({ introValueValidationState : "error" });
-    }
   }
 
   render(){
@@ -85,9 +77,6 @@ class WriteSource extends React.Component{
         <form>
           <FormGroup bsSize="large" validationState={this.state.urlValueValidationState}>
             <FormControl type="text" placeholder={this.state.urlValuePlaceholde} ref="urlValue" />
-          </FormGroup>
-          <FormGroup controlId="formControlsTextarea" bsStyle="custom" validationState={this.state.introValueValidationState}>
-            <FormControl componentClass="textarea" placeholder={this.state.introValuePlaceholde} ref="introValue" />
           </FormGroup>
         </form>
         <Button bsStyle="danger" bsSize="large" onClick={this.publish}>提交</Button>

@@ -17,18 +17,22 @@ bootstrapUtils.addStyle(FormControl, 'custom');
 class SourceShare extends React.Component{
   constructor(props){
     super(props);
-    this.state= {
+    this.state = {
       resource: [],
       comments: [],
       commentsOwnerNames: [],
       urlPublishTime: 0,
       commentLength: 0,
       inputValidationState: null,
-      inputPlaceholder: "写下你的评论.."
+      inputPlaceholder: "写下你的评论..",
     }
   }
 
   componentWillMount(){
+    this.getContent();
+  }
+
+  getContent = () => {
     ajax.get(`${baseUrl}/urlpublish/${this.props.params.id}`)
     .end((error, response) => {
       if(!error && response){
@@ -66,8 +70,25 @@ class SourceShare extends React.Component{
       browserHistory.push('login');
       return;
     }else{
-      if(!ReactDOM.findDOMNode(this.refs.commentValue).trim()){
+      if(!ReactDOM.findDOMNode(this.refs.commentValue).value.trim()){
         this.errorRemminder();
+      }else{
+        const content = {
+          content: ReactDOM.findDOMNode(this.refs.commentValue).value.trim()
+        }
+
+        ajax.post(`${baseUrl}/urlcomment/?comment1=${this.props.params.id}`)
+        .send(content)
+        .set({'Authorization': `Token ${LoginState.token}`})
+        .end((error, response) => {
+          if(error || response.status !== 201){
+            alert("评论失败，请稍后再试");
+            ReactDOM.findDOMNode(this.refs.commentValue).value = "";
+          }else{
+            this.getContent();
+            ReactDOM.findDOMNode(this.refs.commentValue).value = "";
+          }
+        })
       }
     }
   }
@@ -77,7 +98,7 @@ class SourceShare extends React.Component{
     this.setState({ inputValidationState : "error" });
   }
 
-  deleteInputValue(){
+  deleteInputValue = () => {
     ReactDOM.findDOMNode(this.refs.commentValue).value = "";
   }
 
@@ -87,8 +108,8 @@ class SourceShare extends React.Component{
         <div className="source">
           <div className="source-title">
             <b>发布于</b>
-            <b className="b-username"><Link to={`/user/${this.state.resource.username}`}>{this.state.resource.owner}</Link></b> 
-            <b className="b-publishtime">{this.state.urlPublishTime}</b>
+            <b className="b-username"><Link to={`/user/${this.state.resource.username}`}>{this.state.resource.owner}</Link></b>
+            <b className="b-publishtime">{this.state.urlPublishTime}</b>     
           </div>
           <div className="source-content">
             <p>
@@ -124,8 +145,8 @@ class SourceShare extends React.Component{
                 <FormControl type="text" placeholder={this.state.inputPlaceholder} ref="commentValue" />
               </FormGroup>
             </form>
-            <Button bsStyle="danger">提交</Button>
-            <Button onClick={this.deleteInputValue.bind(this)}>取消</Button>
+            <Button bsStyle="danger" onClick={this.pushComment}>提交</Button>
+            <Button onClick={this.deleteInputValue}>取消</Button>
           </div>
         </div>
       </div>  
