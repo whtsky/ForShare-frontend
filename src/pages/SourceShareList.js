@@ -58,7 +58,6 @@ loadSourceFromServer(){
               const id = source.id;
               const userName = source.owner;
               const userId = source.username;
-              const urlMessage = source.urlmessage;
               const urlintroduce = source.urlintroduce;
               const urlPubulishTime = source.urlpublish_time.slice(0, 16);
               const urlReadCount = source.urlreadcount;
