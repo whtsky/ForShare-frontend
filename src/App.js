@@ -27,8 +27,6 @@ function GetIEVersion() {
 
 class Footer extends React.Component{
   render() {
-    let browser = navigator.appName;
-    console.log(browser);
     if(GetIEVersion() > 0){
       return null;
     }else{
