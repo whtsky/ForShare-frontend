@@ -27,7 +27,7 @@ class WriteSource extends React.Component{
   publish = () => {
     
     if(!LoginState.completed){
-      browserHistory.push('login');
+      browserHistory.push('/login');
       return;
     }
     const urlMessage = ReactDOM.findDOMNode(this.refs.urlValue).value.trim();
