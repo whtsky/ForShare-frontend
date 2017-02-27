@@ -39,6 +39,12 @@ class Footer extends React.Component{
 
 class App extends React.Component {
 
+  getChildContext = () => {
+    return {
+      location: this.props.location
+    }
+  }
+
   render() {
     return (
       <div className="header">
@@ -69,4 +75,7 @@ class App extends React.Component {
   }
 }
 
+App.childContextTypes = {
+    location: React.PropTypes.object
+}
 export default App;
