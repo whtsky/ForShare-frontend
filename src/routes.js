@@ -4,8 +4,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from './App';
 import SourceShareList from './pages/SourceShareList';
 import SourceShare from './pages/SourceShare';
-import WriteSourceLink from './pages/WriteSourceLink';
-import WriteArticle from './pages/WriteArticle';
+import WriteSource from './pages/WriteSource';
 import Login from './pages/Login';
 import UserInterface from './pages/UserInterface';
 
@@ -14,8 +13,7 @@ const routes = (
     <IndexRoute component={SourceShareList} />
     <Route path="sourcelist" component={SourceShareList} />
     <Route path="source/:id" component={SourceShare} />
-    <Route path="newlink" component={WriteSourceLink} />
-    <Route path="newarticle" component={WriteArticle} />
+    <Route path="new" component={WriteSource} />
     <Route path="login" component={Login} />
     <Route path="user/:id" component={UserInterface} />
   </Route> 
