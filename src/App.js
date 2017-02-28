@@ -58,7 +58,10 @@ class App extends React.Component {
             <LinkContainer to="/sourcelist" activeHref="active">
               <NavItem>资源分享</NavItem>
             </LinkContainer>
-            <LinkContainer to="/new" activeHref="active">
+            <LinkContainer to="/newlink" activeHref="active">
+              <NavItem>上传链接</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/newarticle" activeHref="active">
               <NavItem>写文章</NavItem>
             </LinkContainer>
           </Nav>

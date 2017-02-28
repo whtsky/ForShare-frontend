@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router';
 
 import baseUrl from './config';
 import { LoginState } from '../store';
-import './WriteSource.css';
+import './WriteSourceLink.css';
 
 bootstrapUtils.addStyle(FormControl, 'custom');
 
@@ -72,7 +72,7 @@ class WriteSource extends React.Component{
   render(){
     return(
       <div key="write-source" className="write-source">
-        <h1 className="title-h">写文章</h1>
+        <h1 className="title-h">上传链接</h1>
         <p className="title-p"><label className="of"></label>在这里添加链接<label className="on"></label></p>
         <form>
           <FormGroup bsSize="large" validationState={this.state.urlValueValidationState}>
