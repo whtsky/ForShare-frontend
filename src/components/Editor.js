@@ -6,9 +6,7 @@ import 'simditor-new/styles/simditor.css';
 class Editor extends React.Component{
 
   componentDidMount(){
-    this.editor = new Simditor({
-    textarea: $('#editor')
-    });
+    
   }
 
   render(){

@@ -11,9 +11,7 @@ class WriteArticle extends React.Component{
 
   }
   componentWillMount(){
-    this.editor = new Simditor({
-  textarea: $('#editor')
-  });
+    
   }
 
   render(){
