@@ -85,7 +85,7 @@ loadSourceFromServer(){
                       评论量：{commentLength}
                     </p>
                     <p>{urlintroduce}</p>
-                    <LinkContainer to={`source/${id}`} target="_blank">
+                    <LinkContainer to={`source/${id}`}>
                       <NavItem>                           {/* 防止<Button> 被自动转换成<a>导致样式混乱 */}
                         <Button bsStyle="danger" onClick={ this.handleUrlreadcountChange.bind(this, id, urlReadCount) }>了解详情</Button>
                       </NavItem>
