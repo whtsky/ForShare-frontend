@@ -1,8 +1,10 @@
 import React from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import { LinkContainer } from 'react-router-bootstrap';
+import { observer } from 'mobx-react';
 
+import { SourceMode } from './store'
 import LoginStatusUI from './components/LoginStatusUI';
 import './App.css';
 
@@ -37,12 +39,18 @@ class Footer extends React.Component{
   }
 }
 
+@observer
 class App extends React.Component {
 
   getChildContext = () => {
     return {
       location: this.props.location
     }
+  }
+
+  changeMode = (mode) => {
+    SourceMode.changeMode(mode);
+    window.location.reload();
   }
 
   render() {
@@ -56,7 +64,10 @@ class App extends React.Component {
           </Navbar.Header>
           <Nav>
             <LinkContainer to="/sourcelist" activeHref="active">
-              <NavItem>资源分享</NavItem>
+              <NavDropdown title={"资源分享"} id="basic-nav-dropdown">
+                <MenuItem eventKey={1} onClick={this.changeMode.bind(this, "article")}>原创文章</MenuItem>
+                <MenuItem eventKey={2} onClick={this.changeMode.bind(this, "link")}>链接分享</MenuItem>
+              </NavDropdown>
             </LinkContainer>
             <LinkContainer to="/newlink" activeHref="active">
               <NavItem>上传链接</NavItem>
