@@ -33,7 +33,13 @@ class SourceShare extends React.Component{
   }
 
   getContent = () => {
-    ajax.get(`${baseUrl}/urlpublish/${this.props.params.id}`)
+    var urlValue = "";
+    if(this.context.location.pathname.slice(1,8) !== "article"){
+      urlValue = "urlpublish";
+    }else{
+      urlValue = "articlelist";
+    }
+    ajax.get(`${baseUrl}/${urlValue}/${this.props.params.id}`)
     .end((error, response) => {
       if(!error && response){
         this.setState({ resource : response.body });
@@ -152,6 +158,10 @@ class SourceShare extends React.Component{
       </div>  
     )
   }
+}
+
+SourceShare.contextTypes = {
+  location: React.PropTypes.object
 }
 
 export default SourceShare;

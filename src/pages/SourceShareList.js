@@ -4,13 +4,10 @@ import ReactPaginate from 'react-paginate';
 import { Button, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router';
-import { observer } from 'mobx-react';
 
-import { SourceMode } from '../store';
 import './SourceShareList.css';
 import baseUrl from './config';
 
-@observer
 class SourceShareList extends React.Component{
   constructor(props){
     super(props);
@@ -19,20 +16,16 @@ class SourceShareList extends React.Component{
       sourceList: [],
       offset: 0,
       perPage: 5,
-      sourceListLoaded: false,
-      sourceMode: "link"
+      sourceListLoaded: false
     }
   }
 
 loadSourceFromServer = () => {
   var sourceListUrl = "";
-  
-  if(SourceMode.mode === "link"){
+  if(this.context.location.pathname.slice(1,8) !== "article"){
     sourceListUrl = "urlpublish";
-    this.setState({ sourceMode : "link" });
   }else{
     sourceListUrl = "articlelist";
-    this.setState({ sourceMode : "article" });
   }
   ajax.get(`${baseUrl}/${sourceListUrl}/`)
   .query({ limit: this.state.perPage, offset: this.state.offset })
@@ -47,11 +40,11 @@ loadSourceFromServer = () => {
 }
 
   componentWillMount(){
-    setTimeout(this.loadSourceFromServer, 0); //因无法切换list萌生出的非常非常奇怪的方法，暂时无法解释，头痛
+    this.loadSourceFromServer();
   }
 
   handleUrlreadcountChange(id, count) {
-    if(SourceMode.mode === "link"){
+    if(this.context.location.pathname.slice(1,8) !== "article"){
       ajax.patch(`${baseUrl}/urlpublish/${id}/`)        
         .send({urlreadcount:++count})
         .end((error, response) => {
@@ -100,8 +93,9 @@ loadSourceFromServer = () => {
               var urlPubulishTime = "";
               var urlReadCount = 0;
               var commentLength = 0;
+              var currentLocation = "";
               
-              if(this.state.sourceMode === "article"){
+              if(this.context.location.pathname.slice(1,8) === "article"){
                 id = source.id;
                 userName = source.article_owner;
                 userId = source.usernameid;
@@ -109,6 +103,7 @@ loadSourceFromServer = () => {
                 urlPubulishTime = source.publish_time.slice(0, 16);
                 urlReadCount = source.article_readcount;
                 commentLength = source.articlecomment_set.length;
+                currentLocation = this.context.location.pathname.slice(1,8) + "source";
               }else{
                 id = source.id;
                 userName = source.owner;
@@ -117,6 +112,7 @@ loadSourceFromServer = () => {
                 urlPubulishTime = source.urlpublish_time.slice(0, 16);
                 urlReadCount = source.urlreadcount;
                 commentLength = source.urlcomment_set.length;
+                currentLocation = this.context.location.pathname.slice(1,5) + "source";
               }
 
               return (
@@ -129,7 +125,7 @@ loadSourceFromServer = () => {
                       评论量：{commentLength}
                     </p>
                     <p>{urlIntroduce}</p>
-                    <LinkContainer to={`source/${id}`}>
+                    <LinkContainer to={`${currentLocation}/${id}`}>
                       <NavItem>                           {/* 防止<Button> 被自动转换成<a>导致样式混乱 */}
                         <Button bsStyle="danger" onClick={ this.handleUrlreadcountChange.bind(this, id, urlReadCount) }>了解详情</Button>
                       </NavItem>
@@ -155,6 +151,10 @@ loadSourceFromServer = () => {
       return null;
     }
   }
+}
+
+SourceShareList.contextTypes = {
+  location: React.PropTypes.object
 }
 
 export default SourceShareList;

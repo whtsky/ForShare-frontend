@@ -4,7 +4,6 @@ import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 import { LinkContainer } from 'react-router-bootstrap';
 import { observer } from 'mobx-react';
 
-import { SourceMode } from './store'
 import LoginStatusUI from './components/LoginStatusUI';
 import './App.css';
 
@@ -48,8 +47,7 @@ class App extends React.Component {
     }
   }
 
-  changeMode = (mode) => {
-    SourceMode.changeMode(mode);
+  refresh = () => {
     window.location.reload();
   }
 
@@ -63,16 +61,18 @@ class App extends React.Component {
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <LinkContainer to="/sourcelist" activeHref="active">
-              <NavDropdown title={"资源分享"} id="basic-nav-dropdown">
-                <MenuItem eventKey={1} onClick={this.changeMode.bind(this, "article")}>原创文章</MenuItem>
-                <MenuItem eventKey={2} onClick={this.changeMode.bind(this, "link")}>链接分享</MenuItem>
-              </NavDropdown>
-            </LinkContainer>
-            <LinkContainer to="/newlink" activeHref="active">
+            <NavDropdown title={"资源分享"} id="basic-nav-dropdown">
+              <LinkContainer to="/article">
+                <MenuItem eventKey={1} onClick={this.refresh}>原创文章</MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/link">
+                <MenuItem eventKey={2} onClick={this.refresh}>链接分享</MenuItem>
+              </LinkContainer>
+            </NavDropdown>
+            <LinkContainer to="newlink" activeHref="active">
               <NavItem>上传链接</NavItem>
             </LinkContainer>
-            <LinkContainer to="/newarticle" activeHref="active">
+            <LinkContainer to="newarticle" activeHref="active">
               <NavItem>写文章</NavItem>
             </LinkContainer>
           </Nav>
