@@ -2,20 +2,22 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './App';
-import SourceShareList from './pages/SourceShareList';
-import SourceShare from './pages/SourceShare';
+import createSourceShareList from './pages/SourceShareList';
+import createSourceShare from './pages/SourceShare';
 import WriteSourceLink from './pages/WriteSourceLink';
 import WriteArticle from './pages/WriteArticle';
 import Login from './pages/Login';
 import UserInterface from './pages/UserInterface';
 
+const ArticleSourceShareList = createSourceShareList('createSourceShareList')
+
 const routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={SourceShareList} />
-    <Route path="link" component={SourceShareList} />
-    <Route path="article" component={SourceShareList} />
-    <Route path="articlesource/:id" component={SourceShare} />
-    <Route path="linksource/:id" component={SourceShare} />
+    <IndexRoute component={ArticleSourceShareList} />
+    <Route path="link" component={createSourceShareList('urlpublish')} />
+    <Route path="article" component={ArticleSourceShareList} />
+    <Route path="article/:id" component={createSourceShare('articlelist')} />
+    <Route path="link/:id" component={createSourceShare('urlpublish')} />
     <Route path="newlink" component={WriteSourceLink} />
     <Route path="newarticle" component={WriteArticle} />
     <Route path="login" component={Login} />
